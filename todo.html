@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Todo App</title>
+        <!--CSS Stylesheet-->
+        <link rel="stylesheet" href="todo.css">
+    </head>
+    <body>
+        <input id="todo-title" type="text"/>
+        <input id="date-picker" type="date"/>
+        <input id="time-picker" type="time"/>
+        <button onclick="addToDo()">Add To-Do</button>
+        <div id="list"></div>
+        <script>
+
+            //Model
+            let toDoList = [
+                {
+                    title:'Get groceries',
+                    dueDate:'2022-12-05',
+                    id: '1',
+                    status: false
+                }, 
+                {
+                    title:'Wash the car',
+                    dueDate:'2022-12-05',
+                    id: '2',
+                    status: false
+                },
+                {
+                    title:'Make dinner',
+                    dueDate:'2022-12-05',
+                    id: '3',
+                    status: false
+                }];
+
+            function createToDo(title, dueDate) {
+
+                //generate new ID
+                const timeID = ' ' + new Date().getTime();
+
+                //push new todo into the array
+                toDoList.push({
+                    title: title,
+                    dueDate: dueDate,
+                    id: timeID,
+                    status: false
+                });
+            }
+            
+            function removeToDo(deleteID) {
+               //filter out the button to be deleted from the array
+               toDoList = toDoList.filter(todo => todo.id != deleteID);
+
+            }
+
+            //Controller
+            //add new item to the toDo array
+            function addToDo() {
+
+                //get reference of name input
+                const textbox = document.getElementById('todo-title');
+
+                //set the input values into the array
+                const title = textbox.value;
+
+                //get reference from date input
+                const datePicker = document.getElementById('date-picker');
+                const dueDate = datePicker.value;
+
+                //create new to do
+                createToDo(title, dueDate);
+
+                render();
+            }
+
+            //delete item from the list
+            function deleteToDo(event) {
+
+                //get reference of the button and button ID
+                const deleteButton = event.target;
+                const deleteID = deleteButton.id;
+
+                removeToDo(deleteID);
+
+                // //render the array again after the change
+                render();
+            }
+
+            //set status using checkbox
+            function checkboxChange(event) {
+
+                //get references for checkbox item and ID
+                const checkBox = event.target;
+                const ID = checkBox.dataset.id;
+
+                //get list element corresponding to the checkbox
+                const checkboxItem = toDoList.find(item => item.id == ID);
+
+                //set the appropriate value to the item list 
+                if(checkBox.checked) {
+                    checkboxItem.status = true;
+                }
+                else
+                {
+                    checkboxItem.status = false;
+                }
+            }
+            
+            //View
+            //render the toDo list
+            function render() {
+
+                //reference to the list
+                const listElement = document.getElementById('list')
+
+                //reset the list
+                listElement.innerHTML = ' ';
+
+                
+                toDoList.forEach(function (listItem) {
+                  
+                    //create a div for each element of the list
+                    const element = document.createElement('div');
+                    element.className = "toDoItem";
+
+                    //set the text of the element
+                    element.innerText = listItem.title + ' ' + listItem.dueDate;
+
+                    //create delete button
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'deleteButton';
+                    deleteButton.innerText = 'Delete';
+                    deleteButton.id = listItem.id;
+                    deleteButton.onclick = deleteToDo;
+                    element.appendChild(deleteButton);
+
+                    //create checkbox
+                    let checkBox = document.createElement('input');
+                    checkBox.type = 'checkbox';
+                    checkBox.dataset.id = listItem.id;
+                    checkBox.onchange = checkboxChange;
+                    element.prepend(checkBox);
+                    
+                    //add the element to the list
+                    listElement.appendChild(element);
+
+                })
+            }
+
+            render();
+        </script>
+    </body>
+</html>
