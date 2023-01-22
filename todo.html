@@ -6,13 +6,15 @@
         <link rel="stylesheet" href="todo.css">
     </head>
     <body>
-        <div class="inputDiv">
-            <input id="todo-title" type="text"/>
-            <input id="date-picker" type="date"/>
-            <input id="time-picker" type="time"/>
-            <button onclick="addToDo()">Add To-Do</button>
+        <div class="wrapper">
+            <div class="inputDiv">
+                <input id="todo-title" type="text"/>
+                <input id="date-picker" type="date"/>
+                <input id="time-picker" type="time"/>
+                <button onclick="addToDo()">Add To-Do</button>
+            </div>
+            <div id="list" class="listDiv"></div>
         </div>
-        <div id="list" class="listDiv"></div>
         <script>
 
             //Model

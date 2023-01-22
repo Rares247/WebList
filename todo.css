@@ -1,3 +1,12 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    margin-top: 300px;
+}
+
 .deleteButton {
     margin-left: 12px;
 }
@@ -5,17 +14,16 @@
 .toDoItem {
     border-style: solid;
     border-color: red;
+    text-align: center;
 }
 
 .listDiv {
     border-style: solid;
     border-color: green;
     border-width: 5px;
-    display:flex;
 }
 
 .inputDiv {
     border-style: solid;
     border-color: blue;
-    display: flex;
 }
