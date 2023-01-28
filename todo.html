@@ -8,7 +8,7 @@
     <body>
         <div class="wrapper">
             <div class="inputDiv">
-                <input id="todo-title" type="text"/>
+                <input id="todo-title" class="todoTitle" placeholder="Please enter your task here" type="text"/>
                 <input id="date-picker" type="date"/>
                 <input id="time-picker" type="time"/>
                 <button class="addButton" onclick="addToDo()">Add</button>
@@ -134,7 +134,7 @@
                     //create delete button
                     const deleteButton = document.createElement('button');
                     deleteButton.className = 'deleteButton';
-                    deleteButton.innerText = 'Delete';
+                    deleteButton.innerText = 'X';
                     deleteButton.id = listItem.id;
                     deleteButton.onclick = deleteToDo;
                     element.appendChild(deleteButton);
